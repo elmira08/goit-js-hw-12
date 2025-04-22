@@ -62,12 +62,14 @@ loadMoreBtn.addEventListener('click', async () => {
   page += 1;
   loadMoreBtn.disabled = true;
   inlineLoader.classList.add('visible');
-
+  showLoader(); 
   try {
     const data = await getImagesByQuery(query, page);
     createGallery(data.hits);
 
-    setTimeout(scrollSmoothly, 0);
+    setTimeout(() => {
+      scrollSmoothly(); 
+    }, 200);
 
     const totalPages = Math.ceil(totalHits / 15);
     if (page >= totalPages) {
@@ -82,6 +84,7 @@ loadMoreBtn.addEventListener('click', async () => {
   } finally {
     inlineLoader.classList.remove('visible');
     loadMoreBtn.disabled = false;
+    hideLoader(); 
   }
 });
 
